@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"path"
+	"strings"
 )
 
 type syslist struct {
@@ -13,17 +15,18 @@ type syslist struct {
 	GOARCH string
 }
 
-var syslists [5]syslist
+const SubDir = "bin/"
+
+var syslists [4]syslist
 
 func init() {
 	syslists[0] = syslist{GOOS: "darwin", GOARCH: "amd64"}
 	syslists[1] = syslist{GOOS: "linux", GOARCH: "amd64"}
-	syslists[2] = syslist{GOOS: "linux", GOARCH: "arm"}
-	syslists[3] = syslist{GOOS: "linux", GOARCH: "arm64"}
-	syslists[4] = syslist{GOOS: "windows", GOARCH: "amd64"}
-
+	syslists[2] = syslist{GOOS: "linux", GOARCH: "arm64"}
+	syslists[3] = syslist{GOOS: "windows", GOARCH: "amd64"}
 }
 
+//syslists[2] = syslist{GOOS: "linux", GOARCH: "arm"}
 //syslists[4] = syslist{GOOS: "darwin", GOARCH: "386"}
 //syslists[5] = syslist{GOOS: "dragonfly", GOARCH: "amd64"}
 //syslists[6] = syslist{GOOS: "freebsd", GOARCH: "386"}
@@ -54,6 +57,16 @@ func init() {
 
 // 编译
 func main() {
+
+	//获得文件名
+	file9, _ := ioutil.ReadDir(".")
+	var file8 string
+	for _, v := range file9 {
+		if strings.HasSuffix(v.Name(), `.go`) {
+			file8 = v.Name()[:len(v.Name())-3]
+		}
+	}
+
 	// 文件存放目录
 	var parentFolder string
 	// 编译输出存放的子目录
@@ -77,8 +90,8 @@ func main() {
 
 	cmde := path.Join(parentFolder, subFolder, filePrefix)
 
-	//编译输出存放"bin"子目录
-	cmde = `bin/` + cmde
+	//编译输出存放子目录
+	cmde = SubDir + file8 + `-` + cmde
 
 	if filePrefix != "" && len(filePrefix) > 0 {
 		cmde = cmde + "-"

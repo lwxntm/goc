@@ -2,7 +2,7 @@
 
 get :  
 ````
-go get github.com/minesky04/goc
+go get -u github.com/lwxntm/goc
 ````
 
 use:  
@@ -12,7 +12,7 @@ goc
 ```
 Custom:  
 
-edit:`syslists [5]syslist` or `cmde = "bin/" + cmde` 
+edit:`syslists [...]syslist` or `SubDir` 
 
 ----------------------------------------------  
 thanks: [https://www.bajins.com/Go](https://www.bajins.com/Go)
