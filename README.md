@@ -2,7 +2,7 @@
 
 get :  
 ````
-go get github.com/minesky04/goc
+go get github.com/lwxntm/goc
 ````
 
 use:  
