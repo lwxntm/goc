@@ -70,7 +70,7 @@ func main() {
 	// 文件存放目录
 	var parentFolder string
 	// 编译输出存放的子目录
-	var subFolder string = "output/"
+	var subFolder = "output/"
 	// 文件名前缀
 	var filePrefix string
 	// 要编译的源文件列表
@@ -103,7 +103,7 @@ func main() {
 		}
 		thisCmde := fmt.Sprintf("%v%v-%v%v", cmde, v.GOOS, v.GOARCH, ext)
 		fmt.Println(thisCmde)
-		cmd := exec.Command("go", "build", "-ldflags=-w","-s", "-i", "-o", thisCmde, files)
+		cmd := exec.Command("go", "build", "-ldflags=-w", "-i", "-o", thisCmde, files)
 		cmd.Env = append(os.Environ(), "GOARCH="+v.GOARCH, "GOOS="+v.GOOS)
 		output, err := cmd.CombinedOutput()
 		if err != nil {
